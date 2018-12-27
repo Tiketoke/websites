@@ -1,0 +1,15 @@
+$bgColor = #00bcd4
+$darkTextColor = #333
+$headerHeight = .86rem
+@keyframes container{
+  0%{
+    transition-timing-function: cubic-bezier(0.215,.61,.355,1); /*贝塞尔曲线 ： X1 Y1 X2 Y2*/
+    transform: translate3d(0,0,0); /*设置只在Z轴上移动*/
+  }
+  50%{
+    transform: translate3d(0,-20px,0);
+  }
+  100%{
+    transform: translate3d(0,0px,0);
+  }
+}
