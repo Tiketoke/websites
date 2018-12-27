@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import 'styles/reset.css'
 import 'styles/border.css'
+import i18n from './i18n'
 
 Vue.config.productionTip = false
 
@@ -12,6 +13,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  i18n: i18n,
   components: { App },
   template: '<App/>'
 })

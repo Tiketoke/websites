@@ -124,10 +124,10 @@
                   </div>
                 </div>
               </div>
-              <div class="item3 container-fluid"  style="padding-left: 0px; padding-right: 0px;">
-                <div class="item3_s container" id="a1">
+              <div class="item3 container-fluid"  style="padding-left: 0px; padding-right: 0px;" id="mao2">
+                <div class="item3_s container" >
                   <div class="item3_s1">
-                      <div class="item2_1" id="mao2">
+                      <div class="item2_1">
                         <p class="p3">奇迹资本投资案例：</p>
                         <ul>
                           <li>

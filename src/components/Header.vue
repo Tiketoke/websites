@@ -8,15 +8,19 @@
       </div>
       <div class="nav_left">
         <div class="nav_left1">
-          <a herf="#a1" class="spn1" @click="jump2(index2)">最新动态</a>
-          <a herf="#a2"  class="spn1" @click="jump(index)">联系我们</a>
+          <a herf="" class="spn1" @click="jump()">最新动态</a>
+          <a herf=""  class="spn1" @click="jump2()">联系我们</a>
+
+          <li>
+            <router-link to="/index">{{ $t("message.index") }}</router-link>
+          </li>
           <el-dropdown>
             <span class="el-dropdown-link spn2">
                 <img src="../assets/images/quan.png" alt="" style="width: 18px; display: inline-block;">
             </span>
             <el-dropdown-menu slot="dropdown" class="lists">
-              <el-dropdown-item><img src="../assets/images/cn.png" alt="" style="width: 24px; height: 24px; border-radius: 50%; margin-right: 8px;">简体中文</el-dropdown-item>
-              <el-dropdown-item><img src="../assets/images/en.png" alt="" style="width: 24px; height: 24px; border-radius: 50%; margin-right: 8px;">English</el-dropdown-item>
+              <el-dropdown-item @click="changeLang(cn)"><img src="../assets/images/cn.png" alt="" style="width: 24px; height: 24px; border-radius: 50%; margin-right: 8px;">简体中文</el-dropdown-item>
+              <el-dropdown-item @click="changeLang(en)"><img src="../assets/images/en.png" alt="" style="width: 24px; height: 24px; border-radius: 50%; margin-right: 8px;">English</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -27,13 +31,16 @@
 
 <script>
   import axios from 'axios'
+  import * as $ from 'jquery'
   import Vue from 'vue';
     export default {
         name: "Header",
       data(){
           return{
             imgUrl:'',
-            hidd:'false'
+            hidd:'false',
+            locale: 'cn',
+            lang:'ENG'
           }
       },
       methods: {
@@ -59,21 +66,50 @@
             this.imgUrl = data.logo;
           }
         },
-        jump (index) {
-          let jump = document.querySelectorAll('.d_jump');
+        jump () {
 // 获取需要滚动的距离
-          let total = jump[index].offsetTop
-          // Chrome
-          document.body.scrollTop = total
-          // Firefox
-          document.documentElement.scrollTop = total
-// Safari
-          window.pageYOffset = total
+          let total = $('#mao2').offset().top;
+          total=Number(total-80);
+           // $(window).animate({
+           //
+           // })
+          $("html,body").animate({ scrollTop: total }, 1000)
         },
+        jump2 () {
+// 获取需要滚动的距离
+          let total = $('#mao3').offset().top;
+          $("html,body").animate({ scrollTop: total }, 1000)
+        },
+        changeLang () {
+          // 增加传入语言
+          if(this.locale=='cn'){
+            this.lang='ENG';
+            this.locale='en';
+          }else{
+            this.lang='中文';
+            this.locale='cn';
+          }
+          this.$cookie.set('lng', this.locale=='cn'?'0':'1', 1);
+          window.location.reload();//进行刷新改变cookie里的值
+        }
       },
       mounted () {
-        this.getDetailInfo()
+        this.getDetailInfo();
+        if(this.$cookie.get('lng')=='0'){
+          this.locale='cn';
+          this.lang='ENG';
+        }else{
+          this.locale='en';
+          this.lang='中文';
+        }
+        this.$cookie.set('lng', this.locale=='cn'?'0':'1', 1);
       },
+      watch: {
+        locale (val) {
+          this.$i18n.locale = val;
+          console.log("locale",val);
+        }
+      }
 
     }
 </script>
