@@ -9,33 +9,30 @@
                <img :src="QQS" alt="">
              </div>
              <div class="mid">
-                <p class="p1">为全世界的创业者带来全新的资本力量！</p>
-                <p class="p2">奇迹资本 - 创造资本的奇迹！</p>
+                <p class="p1" v-if="languge == 'cn'">{{descrs[0].site_qq}}</p>
+                <p class="p1" v-else>{{descrs[0].site_phone}}</p>
+                <p class="p2" v-if="languge == 'cn'">{{descrs[0].site_fax}}</p>
+                <p class="p2" v-else>{{descrs[0].site_qqtwo}}</p>
              </div>
            </div>
            <div class="bot container-fluid">
-              <div style="padding-left: 0px; padding-right: 0px; margin-top: 80px;" class="item container-fluid">
+              <div style="padding-left: 0px; padding-right: 0px; margin-top: 80px;" class="item container-fluid" id="amao1">
                 <div class="mao1 container">
                     <div class="item_1s">
-                      <p class="p1">
+                      <p class="p1" v-if="languge == 'cn'">
                         奇迹资本区别区传统VC的特点
                       </p>
-                      <ul>
-                        <li>
+                      <p class="p1" v-else>
+                        Characteristics of Traditional VC in Miracle Capital Distinction Zone
+                      </p>
+                      <ul v-for="item in characteristic" :id="item.id">
+                        <li v-if="languge == 'cn'">
                           <img src="../assets/images/colo-q.png" alt="">
-                          GP也是LP投入资本，一起携手把资本的力量放大！
+                          {{item.title}}
                         </li>
-                        <li>
+                        <li v-else>
                           <img src="../assets/images/colo-q.png" alt="">
-                          GP也是LP投入资本，一起携手把资本的力量放大！
-                        </li>
-                        <li>
-                          <img src="../assets/images/colo-q.png" alt="">
-                          GP也是LP投入资本，一起携手把资本的力量放大！
-                        </li>
-                        <li>
-                          <img src="../assets/images/colo-q.png" alt="">
-                          GP也是LP投入资本，一起携手把资本的力量放大！
+                          {{item.en_title}}
                         </li>
                       </ul>
                     </div>
@@ -66,59 +63,65 @@
 
                 <div class="item2_s container">
                   <div class="item2_s1">
-                    <p class="p1">
+                    <p class="p1" v-if="languge == 'cn'">
                       <img src="../assets/images/xin.png" alt="">
                         是时候，为资本重新赋能啦！
+                      <img src="../assets/images/xin.png" alt="">
+                    </p>
+                    <p class="p1" v-else>
+                      <img src="../assets/images/xin.png" alt="">
+                      It's time to re-empower capital！
                       <img src="../assets/images/xin.png" alt="">
                     </p>
                     <p class="p2">
                       <img src="../assets/images/mors-xing.png" alt="">
                     </p>
                     <div class="item2_1">
-                      <p class="p3">
-                        奇迹资本
+                      <p class="p3" v-if="languge == 'cn'">
+                       奇迹资本
+                      </p>
+                      <p class="p3" v-else>
+                        Miracle capital
                       </p>
                       <ul>
-                        <li>
-                          <img src="../assets/images/item2_1.png" alt="">
-                          <span>58.com姚劲波</span>
+                        <li v-for="item in capital" :id="item.id" v-if="languge == 'cn'">
+                          <img :src="item.image" alt="">
+                          <span>{{item.title}}</span>
                         </li>
-                        <li>
-                          <img src="../assets/images/item2_3.png" alt="">
-                          <span>58.com姚劲波</span>
-                        </li>
-                        <li>
-                          <img src="../assets/images/item2_3.png" alt="">
-                          <span>58.com姚劲波</span>
+                        <li v-for="item in capital" :id="item.id" v-else>
+                          <img :src="item.image" alt="">
+                          <span>{{item.en_title}}</span>
                         </li>
                       </ul>
                     </div>
                     <div class="item2_1">
-                      <p class="p3">
+                      <p class="p3" v-if="languge == 'cn'">
                         奇迹资本
                       </p>
-                      <ul>
-                        <li>
-                          <img src="../assets/images/item2_1.png" alt="">
-                          <span>58.com姚劲波</span>
-                        </li>
-                        <li>
-                          <img src="../assets/images/item2_3.png" alt="">
-                          <span>58.com姚劲波</span>
-                        </li>
-                        <li>
-                          <img src="../assets/images/item2_3.png" alt="">
-                          <span>58.com姚劲波</span>
+                      <p class="p3" v-else>
+                        Miracle capital
+                      </p>
+                      <ul >
+                        <li v-for="item in capitalLP">
+                          <img :src="item.image" alt="">
+                          <span>{{item.title}}</span>
                         </li>
                       </ul>
                     </div>
                     <div class="item2_2">
-                      <a href="baidu.com" class="p1_1">
+                      <a href="baidu.com" class="p1_1" v-if="languge == 'cn'">
                         <img src="../assets/images/head7.png" alt="" class="pic1">
                         立即成为奇迹资本LP
                       </a>
-                      <p class="p2_1">
+                      <a href="baidu.com" class="p1_1" v-else>
+                        <img src="../assets/images/head7.png" alt="" class="pic1">
+                        Become a Wonder Capital LP
+                      </a>
+                      <p class="p2_1" v-if="languge == 'cn'">
                         联系邮箱 QQ.coms
+                      </p>
+                      <p class="p2_1" v-else>
+                        Contact mailbox QQ.coms
                       </p>
                     </div>
                   </div>
@@ -128,54 +131,44 @@
                 <div class="item3_s container" >
                   <div class="item3_s1">
                       <div class="item2_1">
-                        <p class="p3">奇迹资本投资案例：</p>
-                        <ul>
-                          <li>
+                        <p class="p3" v-if="languge == 'cn'">奇迹资本投资案例：</p>
+                        <p class="p3" v-else>Miracle Capital Investment Case：</p>
+                        <ul >
+                          <li v-for="(item,index) of casees" :id="item.id">
                             <a href="#">
-                              <img src="../assets/images/item3.png" alt="">
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <img src="../assets/images/item3_6.png" alt="">
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <img src="../assets/images/item3_6.png" alt="">
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <img src="../assets/images/item3.png" alt="">
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <img src="../assets/images/item3_6.png" alt="">
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <img src="../assets/images/item3_6.png" alt="">
+                              <img :src="item.image" alt="">
                             </a>
                           </li>
                         </ul>
                       </div>
                       <div class="item2_2" id="mao3">
-                          <p class="p2_s">
+                          <p class="p2_s" v-if="languge == 'cn'">
                             想要获得奇迹资本的投资？期待我们给予彼此的惊喜！
                           </p>
-                        <a href="" class="p1_1">
+                        <p class="p2_s" v-else>
+                          Want to invest in miracle capital? Expect us to surprise each other!
+                        </p>
+                        <a href="" class="p1_1" v-if="languge == 'cn'">
                           <img src="../assets/images/book.png" alt="" class="pic_1">
                           提交商业计划书
                         </a>
-                        <p class="p2_1">
+                        <a href="" class="p1_1" v-else>
+                          <img src="../assets/images/book.png" alt="" class="pic_1">
+                          Submitting Business Plans
+                        </a>
+                        <p class="p2_1"  v-if="languge == 'cn'">
                           我们期望为创业者服务,与创业者共同成长,
                           <br>
                           与创业者一起改变世界
                           <img src="../assets/images/see.png" alt="">
                           为社会创造长期价值。
+                        </p>
+                        <p class="p2_1" v-else>
+                          We expect to serve entrepreneurs and grow with them.
+                          <br>
+                          Change the world with entrepreneurs
+                          <img src="../assets/images/see.png" alt="">
+                          Create long-term value for society.
                         </p>
                       </div>
                   </div>
@@ -192,24 +185,38 @@
   import axios from 'axios'
     export default {
         name: "BContent",
+      props:{
+        descrs:Array,
+        languge:String,
+      },
       data(){
         return{
           imgsBan:'',
           eleH:'',
-          QQS:"",
+          QQS:'',
+          characteristic:[],
+          casees:[],
+          capital:[],
+          capitalLP:[],
         }
       },
       methods: {
         getDetailInfo () {
-          axios.get('/api/detail.json', {
+          axios.get('/api/index/show', {
           }).then(this.handleGetDataSucc)
         },
         handleGetDataSucc (res) {
           res = res.data;
-          if(res.ret && res.data){
-            const data = res.data;
-            this.imgsBan = data.bannes;
-            this.QQS = data.QQS;
+          console.log(res)
+          if(res.status == 1){
+            const data = res.msg;
+            this.imgsBan =data.banner[0].image;
+            this.QQS = data.banner2[0].image;
+            this.characteristic =data.characteristic;
+            this.casees =data.cases;
+            this.capital =data.capital;
+            this.capitalLP =data.capitalLP;
+
           }
         }
       },
@@ -287,6 +294,7 @@
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
+    box-sizing :border-box;
   }
 
 
@@ -411,6 +419,9 @@
   .sec .bot .item2 .item2_1 ul li{
     margin-right: 20px;
     margin-bottom: 80px;
+  }
+  .sec .bot .item2 .item2_1 ul li:nth-child(3n){
+    margin-right 0
   }
   .sec .bot .item2 .item2_1 ul li img{
     width: 200px;
@@ -576,7 +587,7 @@
   }
   @media (max-width: 991px) and (min-width: 915px){
     .sec .top .img2{
-      top: 35%;
+      top: 37%;
     }
     .item3 .item3_s .item3_s1{
       margin: 0 40px;
@@ -603,6 +614,12 @@
       width: 750px;
     }
   }
+  @media (max-width: 799px) and (min-width: 749px){
+    .item2 .item2_s .item2_s1, .item .item_s .item_1s {
+      margin: 0 32px;
+    }
+  }
+
   @media (max-width: 742px) and (min-width: 650px){
     .sec .bot .item2 .item2_s1,.sec .bot .item .item_1s{
       margin: 0 107px;
@@ -617,5 +634,6 @@
      }
 
   }
+
 
 </style>

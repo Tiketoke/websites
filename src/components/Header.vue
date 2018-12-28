@@ -3,24 +3,22 @@
     <div class="navbar-fixed-top">
       <div class="pic">
         <router-link to="/" tag="a">
-          <img :src="imgUrl" alt="">
+          <img  alt="">
         </router-link>
       </div>
       <div class="nav_left">
         <div class="nav_left1">
-          <a herf="" class="spn1" @click="jump()">最新动态</a>
-          <a herf=""  class="spn1" @click="jump2()">联系我们</a>
-
-          <li>
-            <router-link to="/index">{{ $t("message.index") }}</router-link>
-          </li>
-          <el-dropdown>
+          <a herf="" class="spn1" @click="jump()" v-if="languge == 'cn'">最新动态</a>
+          <a herf="" class="spn1" @click="jump()" v-else>now doing</a>
+          <a herf=""  class="spn1" @click="jump2()"  v-if="languge == 'cn'">联系我们</a>
+          <a herf=""  class="spn1" @click="jump2()" v-else>CONTactus</a>
+          <el-dropdown  @command="handleCommand">
             <span class="el-dropdown-link spn2">
                 <img src="../assets/images/quan.png" alt="" style="width: 18px; display: inline-block;">
             </span>
             <el-dropdown-menu slot="dropdown" class="lists">
-              <el-dropdown-item @click="changeLang(cn)"><img src="../assets/images/cn.png" alt="" style="width: 24px; height: 24px; border-radius: 50%; margin-right: 8px;">简体中文</el-dropdown-item>
-              <el-dropdown-item @click="changeLang(en)"><img src="../assets/images/en.png" alt="" style="width: 24px; height: 24px; border-radius: 50%; margin-right: 8px;">English</el-dropdown-item>
+              <el-dropdown-item command="cn"><img src="../assets/images/cn.png" alt="" style="width: 24px; height: 24px; border-radius: 50%; margin-right: 8px;">简体中文</el-dropdown-item>
+              <el-dropdown-item  command="en"><img src="../assets/images/en.png" alt="" style="width: 24px; height: 24px; border-radius: 50%; margin-right: 8px;">English</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -32,9 +30,12 @@
 <script>
   import axios from 'axios'
   import * as $ from 'jquery'
-  import Vue from 'vue';
     export default {
         name: "Header",
+      props:{
+        descrs:Array,
+        languge:String,
+      },
       data(){
           return{
             imgUrl:'',
@@ -44,6 +45,10 @@
           }
       },
       methods: {
+        handleCommand(command) {
+
+          this.$emit('childByValue', command)
+        },
         selectStyle(){
           var _this=this;
           this.$nextTick(function () {
@@ -80,37 +85,12 @@
           let total = $('#mao3').offset().top;
           $("html,body").animate({ scrollTop: total }, 1000)
         },
-        changeLang () {
-          // 增加传入语言
-          if(this.locale=='cn'){
-            this.lang='ENG';
-            this.locale='en';
-          }else{
-            this.lang='中文';
-            this.locale='cn';
-          }
-          this.$cookie.set('lng', this.locale=='cn'?'0':'1', 1);
-          window.location.reload();//进行刷新改变cookie里的值
-        }
+
       },
       mounted () {
+        console.log(this.languge)
         this.getDetailInfo();
-        if(this.$cookie.get('lng')=='0'){
-          this.locale='cn';
-          this.lang='ENG';
-        }else{
-          this.locale='en';
-          this.lang='中文';
-        }
-        this.$cookie.set('lng', this.locale=='cn'?'0':'1', 1);
-      },
-      watch: {
-        locale (val) {
-          this.$i18n.locale = val;
-          console.log("locale",val);
-        }
       }
-
     }
 </script>
 

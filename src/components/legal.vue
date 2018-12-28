@@ -3,24 +3,15 @@
       <home-header></home-header>
       <div class="container-fluid box" style="padding-right: 0px; padding-left: 0px; background: rgb(15, 19, 44);margin-top: 90px;">
           <div class="container">
-            <div class="tit">LEGAL DISCLAIMER</div>
+            <div class="tit">{{law.title}}</div>
             <div class="con">
               <div class="item">
-                <p class="p1">1. Information published on Qiji.com</p>
+                <!--<p class="p1">1. Information published on Qiji.com</p>-->
+                <!--<p class="p2">-->
+                  <!--The website https://Qiji.com/ (hereinafter, referred to as the "Website") provides information and material of a general nature. You are not authorized and nor should you rely on the Website for legal advice, business advice, or advice of any kind. You act at your own risk in reliance on the contents of the Website. Should you make a decision to act or not act you should contact a licensed attorney in the relevant jurisdiction in which you want or need help. In no way are the owners of, or contributors to, the Website responsible for the actions, decisions, or other behavior taken or not taken by you in reliance upon the Website.-->
+                <!--</p>-->
                 <p class="p2">
-                  The website https://Qiji.com/ (hereinafter, referred to as the "Website") provides information and material of a general nature. You are not authorized and nor should you rely on the Website for legal advice, business advice, or advice of any kind. You act at your own risk in reliance on the contents of the Website. Should you make a decision to act or not act you should contact a licensed attorney in the relevant jurisdiction in which you want or need help. In no way are the owners of, or contributors to, the Website responsible for the actions, decisions, or other behavior taken or not taken by you in reliance upon the Website.
-                </p>
-              </div>
-              <div class="item">
-                <p class="p1">2. Information published on Qiji.com</p>
-                <p class="p2">
-                  The website https://Qiji.com/ (hereinafter, referred to as the "Website") provides information and material of a general nature. You are not authorized and nor should you rely on the Website for legal advice, business advice, or advice of any kind. You act at your own risk in reliance on the contents of the Website. Should you make a decision to act or not act you should contact a licensed attorney in the relevant jurisdiction in which you want or need help. In no way are the owners of, or contributors to, the Website responsible for the actions, decisions, or other behavior taken or not taken by you in reliance upon the Website.
-                </p>
-              </div>
-              <div class="item">
-                <p class="p1">3. Information published on Qiji.com</p>
-                <p class="p2">
-                  The website https://Qiji.com/ (hereinafter, referred to as the "Website") provides information and material of a general nature. You are not authorized and nor should you rely on the Website for legal advice, business advice, or advice of any kind. You act at your own risk in reliance on the contents of the Website. Should you make a decision to act or not act you should contact a licensed attorney in the relevant jurisdiction in which you want or need help. In no way are the owners of, or contributors to, the Website responsible for the actions, decisions, or other behavior taken or not taken by you in reliance upon the Website.
+                  {{law.content}}
                 </p>
               </div>
             </div>
@@ -33,12 +24,50 @@
 <script>
   import  HomeHeader from './Header';
   import  HomeFooter from './Footer';
+  import bus from './../assets/js/eventBus'
+  import axios from 'axios'
+  import { mapGetters } from 'vuex'
     export default {
         name: "legal",
+      props:{
+        descrs:Array,
+        languge:String,
+        b:String,
+      },
+      data(){
+         return {
+           law:'',
+         }
+      },
+      methods:{
+        getDetailInfo () {
+          axios.get('/api/index/show', {
+          }).then(this.handleGetDataSucc)
+        },
+        handleGetDataSucc (res) {
+          res = res.data;
+          console.log(res)
+          if(res.status == 1){
+            const data = res.msg;
+            this.law =data.Law;
+
+          }
+        },
+        ...mapGetters([
+          // 在store.js 中注册的getters
+         'showState'
+        ])
+
+      },
       components:{
         HomeHeader,
-
         HomeFooter
+      },
+      mounted () {
+        this.getDetailInfo();
+        bus.$on("priceChange", (showds) => {
+         console.log(showds)
+        });
       }
     }
 </script>

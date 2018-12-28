@@ -8,7 +8,7 @@
                 <div class="footer-top">
                   <div class="left1">
                     <h4>
-                      <img src="../assets/images/logo.png" alt="">
+                      <img  alt="">
                     </h4>
                   </div>
                   <div class="lines">
@@ -19,23 +19,31 @@
                         <div>
                           <ul class="list-unstyled">
                             <li>
-                              <router-link tag="a" to="/legal">法律</router-link>
+                              <router-link tag="a" to="/legal?cn" v-if="languge == 'cn'" >法律</router-link>
+                              <router-link tag="a" to="/legal?cn" v-else @click="langus(en)">Law</router-link>
                             </li>
                             <li>
-                              <router-link tag="a" to="/privacy">隐私</router-link>
+                              <router-link tag="a" to="/privacy?cn" v-if="languge == 'cn'" @click="langus(cn)">隐私</router-link>
+                              <router-link tag="a" to="/privacy?cn" v-else @click="langus(en)">Privacy</router-link>
                             </li>
                           </ul>
                         </div>
                         <div>
                           <ul class="list-unstyled">
                             <li>
-                              <a href="">
+                              <a href="#" @click="jump()" v-if="languge == 'cn'">
                                 新闻
                               </a>
+                              <a href="#" @click="jump()" v-else>
+                                News
+                              </a>
                             </li>
                             <li>
-                              <a href="">
+                              <a href="#" @click="jump2()" v-if="languge == 'cn'">
                                 关于
+                              </a>
+                              <a href="#" @click="jump2()" v-else>
+                                About
                               </a>
                             </li>
                           </ul>
@@ -43,8 +51,11 @@
                         <div>
                           <ul class="list-unstyled">
                             <li>
-                              <a href="">
+                              <a href="#" @click="jump3()"  v-if="languge == 'cn'">
                                 联系
+                              </a>
+                              <a href="#" @click="jump3()" v-else>
+                                contact
                               </a>
                             </li>
                           </ul>
@@ -65,8 +76,51 @@
 </template>
 
 <script>
+  import * as $ from 'jquery'
+  import bus from './../assets/js/eventBus'
     export default {
-        name: "Footer"
+      name: "Footer",
+      props:{
+        descrs:Array,
+        languge:String,
+      },
+      data(){
+          return {
+            logos:''
+          }
+      },
+      methods:{
+        jump () {
+// 获取需要滚动的距离
+          let total = $('#mao2').offset().top;
+          total=Number(total-80);
+          // $(window).animate({
+          //
+          // })
+          $("html,body").animate({ scrollTop: total }, 1000)
+        },
+        jump2 () {
+// 获取需要滚动的距离
+          let total = $('#amao1').offset().top;
+          total=Number(total-130);
+          $("html,body").animate({ scrollTop: total }, 1000)
+        },
+        jump3 () {
+// 获取需要滚动的距离
+          let total = $('#mao3').offset().top;
+          total=Number(total);
+          // $(window).animate({
+          //
+          // })
+          $("html,body").animate({ scrollTop: total }, 1000)
+        },
+        langus(showds){
+          bus.$emit('priceChange',showds,)
+        }
+      },
+      mounted () {
+        console.log(this.languge)
+      }
     }
 </script>
 
