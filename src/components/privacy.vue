@@ -3,15 +3,19 @@
     <home-header></home-header>
     <div class="container-fluid box" style="padding-right: 0px; padding-left: 0px; background: rgb(15, 19, 44);margin-top: 90px;">
       <div class="container">
-        <div class="tit">{{privacy.title}}</div>
+        <div class="tit" v-if="setMsg =='cn'">{{privacy.title}}</div>
+        <div class="tit" v-else>{{privacy.en_title}}</div>
         <div class="con">
           <div class="item">
             <!--<p class="p1">1. Information published on Qiji.com</p>-->
             <!--<p class="p2">-->
               <!--The website https://Qiji.com/ (hereinafter, referred to as the "Website") provides information and material of a general nature. You are not authorized and nor should you rely on the Website for legal advice, business advice, or advice of any kind. You act at your own risk in reliance on the contents of the Website. Should you make a decision to act or not act you should contact a licensed attorney in the relevant jurisdiction in which you want or need help. In no way are the owners of, or contributors to, the Website responsible for the actions, decisions, or other behavior taken or not taken by you in reliance upon the Website.-->
             <!--</p>-->
-            <p class="p2">
-              {{privacy.content}}
+            <p class="p2" v-if="setMsg =='cn'" v-html="privacy.content">
+
+            </p>
+            <p class="p2" v-else v-html="privacy.en_content">
+
             </p>
           </div>
         </div>
@@ -25,6 +29,7 @@
   import  HomeHeader from './Header';
   import  HomeFooter from './Footer';
   import axios from 'axios'
+  import { mapGetters } from 'vuex'
   export default {
     name: "privacy",
     data(){
@@ -53,7 +58,12 @@
     },
     mounted () {
       this.getDetailInfo();
-    }
+    },
+    computed:{
+      ...mapGetters([
+        'setMsg'
+      ])
+    },
   }
 </script>
 

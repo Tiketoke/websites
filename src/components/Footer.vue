@@ -8,7 +8,7 @@
                 <div class="footer-top">
                   <div class="left1">
                     <h4>
-                      <img  alt="">
+                      <img  alt="" :src="descrs.site_logo">
                     </h4>
                   </div>
                   <div class="lines">
@@ -19,19 +19,19 @@
                         <div>
                           <ul class="list-unstyled">
                             <li>
-                              <router-link tag="a" to="/legal?cn" v-if="languge == 'cn'" >法律</router-link>
-                              <router-link tag="a" to="/legal?cn" v-else @click="langus(en)">Law</router-link>
+                              <router-link tag="a" to="/legal" v-if="setMsg == 'cn'" >法律</router-link>
+                              <router-link tag="a" to="/legal" v-else >Law</router-link>
                             </li>
                             <li>
-                              <router-link tag="a" to="/privacy?cn" v-if="languge == 'cn'" @click="langus(cn)">隐私</router-link>
-                              <router-link tag="a" to="/privacy?cn" v-else @click="langus(en)">Privacy</router-link>
+                              <router-link tag="a" to="/privacy" v-if="setMsg == 'cn'" >隐私</router-link>
+                              <router-link tag="a" to="/privacy" v-else >Privacy</router-link>
                             </li>
                           </ul>
                         </div>
                         <div>
                           <ul class="list-unstyled">
                             <li>
-                              <a href="#" @click="jump()" v-if="languge == 'cn'">
+                              <a href="#" @click="jump()" v-if="setMsg == 'cn'">
                                 新闻
                               </a>
                               <a href="#" @click="jump()" v-else>
@@ -39,7 +39,7 @@
                               </a>
                             </li>
                             <li>
-                              <a href="#" @click="jump2()" v-if="languge == 'cn'">
+                              <a href="#" @click="jump2()" v-if="setMsg == 'cn'">
                                 关于
                               </a>
                               <a href="#" @click="jump2()" v-else>
@@ -51,7 +51,7 @@
                         <div>
                           <ul class="list-unstyled">
                             <li>
-                              <a href="#" @click="jump3()"  v-if="languge == 'cn'">
+                              <a href="#" @click="jump3()"  v-if="setMsg == 'cn'">
                                 联系
                               </a>
                               <a href="#" @click="jump3()" v-else>
@@ -77,16 +77,14 @@
 
 <script>
   import * as $ from 'jquery'
-  import bus from './../assets/js/eventBus'
+  import axios from 'axios'
+  import {mapGetters} from 'vuex'
     export default {
       name: "Footer",
-      props:{
-        descrs:Array,
-        languge:String,
-      },
       data(){
           return {
-            logos:''
+            logos:'',
+            descrs:{}
           }
       },
       methods:{
@@ -114,13 +112,29 @@
           // })
           $("html,body").animate({ scrollTop: total }, 1000)
         },
-        langus(showds){
-          bus.$emit('priceChange',showds,)
-        }
+        getDetailInfo () {
+          axios.get('/api/index/show', {
+          }).then(this.handleGetDataSucc)
+        },
+        handleGetDataSucc (res) {
+          res = res.data;
+
+          if(res.status == 1){
+            const data = res.msg;
+            this.descrs=data.config;
+
+          }
+        },
+      },
+      computed:{
+        ...mapGetters([
+          'setMsg'
+        ])
       },
       mounted () {
-        console.log(this.languge)
-      }
+        this.getDetailInfo();
+
+      },
     }
 </script>
 

@@ -3,14 +3,14 @@
     <div class="navbar-fixed-top">
       <div class="pic">
         <router-link to="/" tag="a">
-          <img  alt="">
+          <img  alt="" :src="descrs.site_logo">
         </router-link>
       </div>
       <div class="nav_left">
         <div class="nav_left1">
-          <a herf="" class="spn1" @click="jump()" v-if="languge == 'cn'">最新动态</a>
+          <a herf="" class="spn1" @click="jump()" v-if="setMsg == 'cn'">最新动态</a>
           <a herf="" class="spn1" @click="jump()" v-else>now doing</a>
-          <a herf=""  class="spn1" @click="jump2()"  v-if="languge == 'cn'">联系我们</a>
+          <a herf=""  class="spn1" @click="jump2()"  v-if="setMsg == 'cn'">联系我们</a>
           <a herf=""  class="spn1" @click="jump2()" v-else>CONTactus</a>
           <el-dropdown  @command="handleCommand">
             <span class="el-dropdown-link spn2">
@@ -30,24 +30,25 @@
 <script>
   import axios from 'axios'
   import * as $ from 'jquery'
+  import {mapMutations,mapGetters} from 'vuex'
     export default {
         name: "Header",
-      props:{
-        descrs:Array,
-        languge:String,
-      },
       data(){
           return{
             imgUrl:'',
             hidd:'false',
             locale: 'cn',
-            lang:'ENG'
+            lang:'ENG',
+            descrs:[]
           }
       },
       methods: {
+        ...mapMutations({
+          saveMsg:'showmsg'
+        }),
         handleCommand(command) {
-
-          this.$emit('childByValue', command)
+          console.log(command)
+          this.saveMsg(command)
         },
         selectStyle(){
           var _this=this;
@@ -60,15 +61,17 @@
           _this.hidd =false;
         },
         getDetailInfo () {
-          axios.get('/api/detail.json', {
+          axios.get('/api/index/show', {
 
           }).then(this.handleGetDataSucc)
         },
         handleGetDataSucc (res) {
           res = res.data;
-          if(res.ret && res.data){
-            const data = res.data;
+          if(res.status == 1){
+            const data = res.msg;
             this.imgUrl = data.logo;
+            this.descrs=data.config;
+            console.log(this.descrs)
           }
         },
         jump () {
@@ -87,10 +90,15 @@
         },
 
       },
+
       mounted () {
-        console.log(this.languge)
         this.getDetailInfo();
-      }
+      },
+      computed:{
+        ...mapGetters([
+          'setMsg'
+        ])
+      },
     }
 </script>
 

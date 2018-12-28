@@ -9,24 +9,24 @@
                <img :src="QQS" alt="">
              </div>
              <div class="mid">
-                <p class="p1" v-if="languge == 'cn'">{{descrs[0].site_qq}}</p>
-                <p class="p1" v-else>{{descrs[0].site_phone}}</p>
-                <p class="p2" v-if="languge == 'cn'">{{descrs[0].site_fax}}</p>
-                <p class="p2" v-else>{{descrs[0].site_qqtwo}}</p>
+                <p class="p1" v-if="setMsg == 'cn'">{{descrs.site_qq}}</p>
+                <p class="p1" v-else>{{descrs.site_phone}}</p>
+                <p class="p2" v-if="setMsg == 'cn'">{{descrs.site_fax}}</p>
+                <p class="p2" v-else>{{descrs.site_qqtwo}}</p>
              </div>
            </div>
            <div class="bot container-fluid">
               <div style="padding-left: 0px; padding-right: 0px; margin-top: 80px;" class="item container-fluid" id="amao1">
                 <div class="mao1 container">
                     <div class="item_1s">
-                      <p class="p1" v-if="languge == 'cn'">
+                      <p class="p1" v-if="setMsg == 'cn'">
                         奇迹资本区别区传统VC的特点
                       </p>
                       <p class="p1" v-else>
                         Characteristics of Traditional VC in Miracle Capital Distinction Zone
                       </p>
                       <ul v-for="item in characteristic" :id="item.id">
-                        <li v-if="languge == 'cn'">
+                        <li v-if="setMsg == 'cn'">
                           <img src="../assets/images/colo-q.png" alt="">
                           {{item.title}}
                         </li>
@@ -63,7 +63,7 @@
 
                 <div class="item2_s container">
                   <div class="item2_s1">
-                    <p class="p1" v-if="languge == 'cn'">
+                    <p class="p1" v-if="setMsg == 'cn'">
                       <img src="../assets/images/xin.png" alt="">
                         是时候，为资本重新赋能啦！
                       <img src="../assets/images/xin.png" alt="">
@@ -77,25 +77,22 @@
                       <img src="../assets/images/mors-xing.png" alt="">
                     </p>
                     <div class="item2_1">
-                      <p class="p3" v-if="languge == 'cn'">
+                      <p class="p3" v-if="setMsg == 'cn'">
                        奇迹资本
                       </p>
                       <p class="p3" v-else>
                         Miracle capital
                       </p>
                       <ul>
-                        <li v-for="item in capital" :id="item.id" v-if="languge == 'cn'">
+                        <li v-for="item in capital" :id="item.id">
                           <img :src="item.image" alt="">
-                          <span>{{item.title}}</span>
-                        </li>
-                        <li v-for="item in capital" :id="item.id" v-else>
-                          <img :src="item.image" alt="">
-                          <span>{{item.en_title}}</span>
+                          <span v-if="setMsg == 'cn'">{{item.title}}</span>
+                          <span v-else>{{item.en_title}}</span>
                         </li>
                       </ul>
                     </div>
                     <div class="item2_1">
-                      <p class="p3" v-if="languge == 'cn'">
+                      <p class="p3" v-if="setMsg == 'cn'">
                         奇迹资本
                       </p>
                       <p class="p3" v-else>
@@ -104,12 +101,13 @@
                       <ul >
                         <li v-for="item in capitalLP">
                           <img :src="item.image" alt="">
-                          <span>{{item.title}}</span>
+                          <span v-if="setMsg == 'cn'">{{item.title}}</span>
+                          <span v-else>{{item.en_title}}</span>
                         </li>
                       </ul>
                     </div>
                     <div class="item2_2">
-                      <a href="baidu.com" class="p1_1" v-if="languge == 'cn'">
+                      <a href="baidu.com" class="p1_1" v-if="setMsg == 'cn'">
                         <img src="../assets/images/head7.png" alt="" class="pic1">
                         立即成为奇迹资本LP
                       </a>
@@ -117,7 +115,7 @@
                         <img src="../assets/images/head7.png" alt="" class="pic1">
                         Become a Wonder Capital LP
                       </a>
-                      <p class="p2_1" v-if="languge == 'cn'">
+                      <p class="p2_1" v-if="setMsg == 'cn'">
                         联系邮箱 QQ.coms
                       </p>
                       <p class="p2_1" v-else>
@@ -131,9 +129,9 @@
                 <div class="item3_s container" >
                   <div class="item3_s1">
                       <div class="item2_1">
-                        <p class="p3" v-if="languge == 'cn'">奇迹资本投资案例：</p>
+                        <p class="p3" v-if="setMsg == 'cn'">奇迹资本投资案例：</p>
                         <p class="p3" v-else>Miracle Capital Investment Case：</p>
-                        <ul >
+                        <ul>
                           <li v-for="(item,index) of casees" :id="item.id">
                             <a href="#">
                               <img :src="item.image" alt="">
@@ -142,13 +140,13 @@
                         </ul>
                       </div>
                       <div class="item2_2" id="mao3">
-                          <p class="p2_s" v-if="languge == 'cn'">
+                          <p class="p2_s" v-if="setMsg == 'cn'">
                             想要获得奇迹资本的投资？期待我们给予彼此的惊喜！
                           </p>
                         <p class="p2_s" v-else>
                           Want to invest in miracle capital? Expect us to surprise each other!
                         </p>
-                        <a href="" class="p1_1" v-if="languge == 'cn'">
+                        <a href="" class="p1_1" v-if="setMsg == 'cn'">
                           <img src="../assets/images/book.png" alt="" class="pic_1">
                           提交商业计划书
                         </a>
@@ -156,7 +154,7 @@
                           <img src="../assets/images/book.png" alt="" class="pic_1">
                           Submitting Business Plans
                         </a>
-                        <p class="p2_1"  v-if="languge == 'cn'">
+                        <p class="p2_1"  v-if="setMsg == 'cn'">
                           我们期望为创业者服务,与创业者共同成长,
                           <br>
                           与创业者一起改变世界
@@ -183,17 +181,17 @@
 
 <script>
   import axios from 'axios'
+  import  {mapGetters} from 'vuex';
     export default {
         name: "BContent",
       props:{
-        descrs:Array,
-        languge:String,
+        descrs:Object,
       },
       data(){
         return{
           imgsBan:'',
           eleH:'',
-          QQS:'',
+          QQS:{},
           characteristic:[],
           casees:[],
           capital:[],
@@ -207,11 +205,12 @@
         },
         handleGetDataSucc (res) {
           res = res.data;
-          console.log(res)
+
           if(res.status == 1){
             const data = res.msg;
             this.imgsBan =data.banner[0].image;
             this.QQS = data.banner2[0].image;
+
             this.characteristic =data.characteristic;
             this.casees =data.cases;
             this.capital =data.capital;
@@ -222,6 +221,16 @@
       },
       mounted () {
         this.getDetailInfo();
+      },
+      computed:{
+        ...mapGetters([
+          'setMsg'
+        ])
+      },
+      watch:{
+        descrs(val) {
+          this.descrs =val;
+        }
       }
     }
 </script>

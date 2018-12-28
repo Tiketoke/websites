@@ -1,8 +1,8 @@
 <template>
   <div>
-    <home-header v-on:childByValue="childByValue" :descrs="texts" :languge="name"></home-header>
-    <home-content :descrs="texts" :languge="name"></home-content>
-    <home-footer :descrs="texts" :languge="name"></home-footer>
+    <home-header></home-header>
+    <home-content :descrs="texts" ></home-content>
+    <home-footer></home-footer>
   </div>
 </template>
 
@@ -11,13 +11,12 @@
   import  HomeContent from './BContent';
   import  HomeFooter from './Footer';
   import  axios from 'axios';
-
+ import  {mapGetters} from 'vuex';
 export default {
   name: 'HelloWorld',
   data () {
     return {
-      name:'cn',
-      texts:[],
+      texts:{},
     }
   },
   components:{
@@ -26,10 +25,7 @@ export default {
     HomeFooter
   },
   methods: {
-    childByValue: function (childValue) {
-      // childValue就是子组件传过来的值
-      this.name = childValue;
-    },
+
     getDetailInfo () {
       axios.get('/api/index/show', {
       }).then(this.handleGetDataSucc)
@@ -38,14 +34,18 @@ export default {
       res = res.data;
       if(res.status == 1){
         const data = res.msg;
-        this.texts.push(data.config);
+        this.texts=data.config;
         console.log(this.texts)
       }
     }
   },
+  computed:{
+    ...mapGetters([
+      'setMsg'
+    ])
+  },
   mounted () {
     this.getDetailInfo();
- 
   }
 }
 </script>
