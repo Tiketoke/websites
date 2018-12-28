@@ -12,9 +12,10 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api':{
-        target: 'http://localhost:8080', //前端服务器端口  本地后台端口 http://localhost:80   外网域名或者IP地址
+        target: 'http://nchs.63.ivears.cn/home', //前端服务器端口  本地后台端口 http://localhost:80   外网域名或者IP地址
+        changeOrigin: true,  // 是否跨域
         pathRewrite:{   //后台联调  删除此项
-          '^/api': '/static/mock'
+          '^/api': ''
         }
       }
     },
